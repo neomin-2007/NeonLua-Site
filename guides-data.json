@@ -6,8 +6,8 @@
     "content": "# Instalação do NEON LUA\n\n## Pré-requisitos\n\n- Servidor Minecraft 1.8.9\n- Java 8 ou superior\n- Bukkit/Spigot instalado\n\n## Passos de Instalação\n\n1. **Baixe o arquivo .jar** da seção Releases no GitHub\n2. **Coloque na pasta plugins** do seu servidor\n3. **Reinicie o servidor** com o comando `restart`\n4. **Configure** no arquivo `plugins/NeonLua/config.yml`\n\n## Próximos Passos\n\nApós a instalação bem-sucedida, configure o plugin seguindo o guia de [Configuração Inicial](02-configuracao-inicial.md).",
     "category": "getting-started",
     "order": 1,
-    "createdAt": "2026-01-03T22:25:29.834Z",
-    "updatedAt": "2026-01-03T22:25:16.181Z"
+    "createdAt": "2026-01-03T22:28:39.281Z",
+    "updatedAt": "2026-01-03T22:28:25.157Z"
   },
   {
     "id": "02-configuracao-inicial",
@@ -16,8 +16,8 @@
     "content": "# Configuração Inicial\n\n## Arquivo config.yml\n\nO arquivo de configuração está localizado em `plugins/NeonLua/config.yml`.\n\n### Opções Principais\n\n```yaml\nactive-scripts:\n  - \"join/main.lua\"\n  - \"chat/main.lua\"\n  - \"move/main.lua\"\n```\n\n> Os scripts ativos tem seu arquivo principal apontado\n> assim podemos ativar apenas os que desejamos.\n\n## Recarregar Configuração\n\nPara recarregar a configuração sem reiniciar o servidor:\n\n```\n/neonlua reload\n```\n\n## Estrutura de Diretórios\n\nApós a primeira execução, a seguinte estrutura será criada:\n\n```\nplugins/NeonLua/\n├── config.yml\n├── scripts/\n│   └── (seus scripts Lua aqui)\n```\n\n## Próximos Passos\n\nAgora você está pronto para criar seus primeiros scripts! Veja o guia de [Fundamentos de Lua](03-fundamentos-lua.md).",
     "category": "getting-started",
     "order": 2,
-    "createdAt": "2026-01-03T22:25:29.834Z",
-    "updatedAt": "2026-01-03T22:25:16.181Z"
+    "createdAt": "2026-01-03T22:28:39.281Z",
+    "updatedAt": "2026-01-03T22:28:25.157Z"
   },
   {
     "id": "03-fundamentos-lua",
@@ -26,8 +26,8 @@
     "content": "# Fundamentos de Lua\n\n## Variáveis e Tipos\n\nEm Lua, as variáveis são declaradas com `local` para escopo local:\n\n```lua\n-- Números\nlocal x = 42\nlocal pi = 3.14\n\n-- Strings\nlocal name = \"NEON LUA\"\nlocal message = \"Olá, mundo!\"\n\n-- Booleanos\nlocal isEnabled = true\nlocal isDisabled = false\n\n-- Tabelas (arrays/objects)\nlocal settings = {\n  name = \"Steve\",\n  level = 10,\n  items = {\"IRON_SWORD\", \"GOLD_PICKAXE\"}\n}\n```\n\n## Funções\n\nAs funções em Lua são poderosas e flexíveis:\n\n```lua\n-- Função simples\nfunction greet(name)\n  return \"Olá, \" .. name .. \"!\"\nend\n\n-- Função com múltiplos retornos\nfunction getPlayerInfo(playerName)\n  return playerName, 100, \"online\"\nend\n\n-- Função anônima\nlocal add = function(a, b)\n  return a + b\nend\n\n-- Chamando funções\nprint(greet(\"Steve\"))\nlocal name, level, status = getPlayerInfo(\"Alex\")\n```\n\n## Loops\n\n### For Loop\n\n```lua\n-- Loop numérico\nfor i = 1, 10 do\n  print(i)\nend\n\n-- Loop com step\nfor i = 0, 10, 2 do\n  print(i) -- 0, 2, 4, 6, 8, 10\nend\n```\n\n### While Loop\n\n```lua\nlocal x = 0\nwhile x < 10 do\n  x = x + 1\n  print(x)\nend\n```\n\n### Table Iteration\n\n```lua\nlocal items = {\"sword\", \"pickaxe\", \"axe\"}\nfor i, item in ipairs(items) do\n  print(i, item)\nend\n\n-- Iteração em tabelas associativas\nlocal player = {name = \"Steve\", level = 10}\nfor key, value in pairs(player) do\n  print(key, value)\nend\n```\n\n## Condicionais\n\n```lua\nlocal level = 10\n\nif level < 5 then\n  print(\"Iniciante\")\nelseif level < 15 then\n  print(\"Intermediário\")\nelse\n  print(\"Avançado\")\nend\n```\n\n## Próximos Passos\n\nAgora que você conhece os eventos, explore a [Lista de Eventos](04-lista-de-eventos.md) para ver os eventos disponíveis.",
     "category": "scripting",
     "order": 1,
-    "createdAt": "2026-01-03T22:25:29.834Z",
-    "updatedAt": "2026-01-03T22:25:16.181Z"
+    "createdAt": "2026-01-03T22:28:39.282Z",
+    "updatedAt": "2026-01-03T22:28:25.157Z"
   },
   {
     "id": "04-lista-de-eventos",
@@ -36,7 +36,7 @@
     "content": "# Eventos Disponiveis\n\nEventos são o mecanismo que permite reagir a acontecimentos do jogo. Em vez de executar código de forma contínua, você define quando algo acontece e o que deve acontecer em resposta.\n\nNo NeonLua, os eventos expõem partes do ciclo de vida do servidor e dos jogadores para seus scripts, tornando possível criar comportamentos dinâmicos, interativos e previsíveis.\n\n\n**PlayerMoveEvent**\nDisparado quando um jogador se movimenta no mundo.\n\n**PlayerJoinEvent**\nDisparado quando um jogador entra no servidor.\n\n**PlayerQuitEvent**\nDisparado quando um jogador sai do servidor.\n\n**PlayerDeathEvent**\nDisparado quando um jogador morre.\n\n**AsyncPlayerChatEvent**\nDisparado quando um jogador envia uma mensagem comum no chat (sem /).\nEsse evento ocorre de forma assíncrona, ou seja, fora da thread principal do servidor.\n\n**CommandPreProcessEvent**\nDisparado quando um comando é enviado, antes de ser processado pelo servidor.\nPermite interceptar, modificar ou cancelar o comando antes da execução.\n\n# Observações Importantes\n\nEventos assíncronos devem ser usados apenas para lógica leve, como validações e manipulação de texto.\n\nAções que afetam o mundo, jogadores ou entidades devem ser executadas de forma sincronizada.\n\nCancelar um evento impede que o comportamento padrão do servidor seja executado.\n\nOutros scripts podem causar interferência em outros scripts dependendo de como são criados.\n\n## Próximos Passos\n\nAgora você está pronto para começar a usar os eventos! [Usando Eventos](04-usando-eventos.md).",
     "category": "scripting",
     "order": 2,
-    "createdAt": "2026-01-03T22:25:29.834Z",
-    "updatedAt": "2026-01-03T22:25:16.181Z"
+    "createdAt": "2026-01-03T22:28:39.282Z",
+    "updatedAt": "2026-01-03T22:28:25.157Z"
   }
 ]
