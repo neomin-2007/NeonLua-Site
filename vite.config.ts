@@ -9,6 +9,7 @@ import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime()];
 
 export default defineConfig({
+  base: '/neon-lua-site/',
   plugins,
   resolve: {
     alias: {
@@ -23,6 +24,7 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
+  
   server: {
     port: 3000,
     strictPort: false, // Will find next available port if 3000 is busy
