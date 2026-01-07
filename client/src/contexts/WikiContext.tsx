@@ -27,7 +27,11 @@ export function WikiProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const loadGuides = async () => {
       try {
-        const response = await fetch("/guides-data.json");
+        // Suportar GitHub Pages com subdiretório
+        const basePath = import.meta.env.BASE_URL || '/';
+        const guideUrl = basePath + 'guides-data.json';
+        
+        const response = await fetch(guideUrl);
         if (response.ok) {
           const data = await response.json();
           const processedGuides = data.map(
@@ -38,6 +42,8 @@ export function WikiProvider({ children }: { children: React.ReactNode }) {
             })
           );
           setGuides(processedGuides);
+        } else {
+          console.warn('Falha ao carregar guides-data.json:', response.status);
         }
       } catch (error) {
         console.error("Erro ao carregar guias:", error);
